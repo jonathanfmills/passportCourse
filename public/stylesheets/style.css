@@ -1,8 +1,48 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+
+.social a {
+    font-size: 28px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    width: 43px;
+    height: 43px;
+    display: inline-block;
+    padding-top: 4px;
+    background-clip: padding-box;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
 }
 
-a {
-  color: #00B7FF;
+hr.small {
+    max-width: 100px;
+    margin: 15px auto;
+    border-width: 4px;
+    border-color: #fff;
 }
+.twitter {
+    background: #55acee;
+    color: #ffffff;
+}
+
+.googleplus {
+    background: #dd4b39;
+    color: #ffffff;
+}
+
+.linkedin {
+    background: #0976b4;
+    color: #ffffff;
+}
+
+.github {
+    background: #333;
+    color: #999;
+}
+.facebook{
+	color: #ffffff;
+	background: #3b5998;
+}
+3b5998
