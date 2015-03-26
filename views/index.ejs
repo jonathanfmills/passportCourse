@@ -75,6 +75,7 @@
         <div class="intro-body">
             <div class="container">
                 <div class="row">
+                    <% if(!user){%>
                     <div class="col-md-8 col-md-offset-2">
                          <h5 class="white-text">Select a social media site to begin</h5>
 
@@ -92,7 +93,9 @@
                                 <li><a href="#" class="facebook"><i class="fa  fa-facebook"></i></a></li>
                             </ul>
                         </div>
-                       
+                       <%} else{%>
+                        Hello <%=user.displayName%>
+                       <%}%>
                     </div>
                 </div>
             </div>
