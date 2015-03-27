@@ -9,42 +9,9 @@ var mongoose = require('mongoose');
 var User = require('./model/user.model');
 
 var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var db = mongoose.connect('mongodb://localhost/socialAggregation');
     
-passport.use(new GoogleStrategy({
-            clientID: '994787243001-s3g7o56kev8njt4ma1kvduhvl4gs4s98.apps.googleusercontent.com',
-            clientSecret: '0S2sPjJgHQXqcY2T6PyJ0xtL',
-            callbackURL: 'http://localhost:3000/auth/google/callback'
-        },
-        function(req, accessToken, refreshToken, profile, done) {
-            // Set the provider data and include tokens
-            var providerData = profile._json;
-            providerData.accessToken = accessToken;
-            providerData.refreshToken = refreshToken;
-            // Create the user OAuth profile
-            var providerUserProfile = {
-                firstName: profile.name.givenName,
-                lastName: profile.name.familyName,
-                displayName: profile.displayName,
-                email: profile.emails[0].value,
-                username: profile.username,
-                avatarUrl: providerData.image.url,
-                provider: 'google',
-                providerData: providerData
-            };
-            console.log(providerUserProfile);
-            var user = new User(providerUserProfile);
-
-            user.save(function(err, user){
-                done(null,user)
-            })
-            // Save the user OAuth profile
-            //users.saveOAuthUserProfile(req, providerUserProfile, done);
-        }
-    ));
-
 
 
 var routes = require('./routes/index');
@@ -67,15 +34,8 @@ app.use(session({secret : 'anything'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-    console.log("Serialize: " + user.displayName)
-  done(null, user);
-});
 
-passport.deserializeUser(function(user, done) {
-    console.log("Deserialize: " + user)
-    done(null, user);
-});
+require('./config/passport')();
 
 app.use('/', routes);
 app.use('/users', users);
