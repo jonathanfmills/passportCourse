@@ -5,9 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var mongoose = require('mongoose');
+var User = require('./model/user.model');
 
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+var db = mongoose.connect('mongodb://localhost/socialAggregation');
     
 passport.use(new GoogleStrategy({
             clientID: '994787243001-s3g7o56kev8njt4ma1kvduhvl4gs4s98.apps.googleusercontent.com',
@@ -26,13 +30,16 @@ passport.use(new GoogleStrategy({
                 displayName: profile.displayName,
                 email: profile.emails[0].value,
                 username: profile.username,
-                avatarUrl: providerData.picture,
-                googleUrl: providerData.link,
+                avatarUrl: providerData.image.url,
                 provider: 'google',
-                providerIdentifierField: 'id',
                 providerData: providerData
             };
-            done(null,providerUserProfile)
+            console.log(providerUserProfile);
+            var user = new User(providerUserProfile);
+
+            user.save(function(err, user){
+                done(null,user)
+            })
             // Save the user OAuth profile
             //users.saveOAuthUserProfile(req, providerUserProfile, done);
         }
