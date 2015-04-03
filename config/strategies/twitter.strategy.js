@@ -22,19 +22,23 @@ module.exports = function () {
                     displayName: profile.displayName,
                     username: profile.username,
                     provider: 'twitter',
-                    providerIdentifierField: 'id_str',
+                    providerIdentifierField: 'id',
                     providerData: providerData
                 };
 
                 // Save the user OAuth profile
-                var query = {
-                    providerData: {
-                        id: providerData.id_str
-                    }
-                };
+                var searchMainProviderIdentifierField = 'providerData.' +
+                    providerUserProfile.providerIdentifierField;
+                // Define main provider search query
+                var query = {};
+                query.provider = providerUserProfile.provider;
+                query[searchMainProviderIdentifierField] =
+                providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
+
+
+                console.log(query);
 
                 User.findOne(query, function (err, user) {
-
                     if (user) {
                         console.log('User Exists Already');
                         done(null, user);
