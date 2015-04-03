@@ -29,7 +29,7 @@ module.exports = function () {
                 // Save the user OAuth profile
                 var query = {
                     providerData: {
-                        id: providerData.id
+                        id: providerData.id_str
                     }
                 };
 
