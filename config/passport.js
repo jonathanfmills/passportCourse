@@ -15,4 +15,5 @@ module.exports = function() {
     require('./strategies/google.strategy')();
     require('./strategies/twitter.strategy')();
     require('./strategies/linkedin.strategy')();
+    require('./strategies/facebook.strategy')();
 };

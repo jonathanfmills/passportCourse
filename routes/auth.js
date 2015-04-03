@@ -25,4 +25,12 @@ router.route('/linkedin/callback').get(passport.authenticate('linkedin', {
     successRedirect: '/',
     failureRedirect: '/login'
 }));
+
+router.route('/facebook').get(passport.authenticate('facebook', {
+    scope: ['email']
+	}));
+router.route('/facebook/callback').get(passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}));
 module.exports = router;
