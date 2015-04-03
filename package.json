@@ -16,7 +16,8 @@
     "ejs": "^2.3.1",
     "passport-google-oauth": "^0.2.0",
     "express-session": "^1.10.4",
-    "mongoose": "^3.8.8"
+    "mongoose": "^3.8.8",
+    "passport-twitter": "^1.0.3"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
