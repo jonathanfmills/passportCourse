@@ -24,15 +24,31 @@ module.exports = function(){
                 provider: 'google',
                 providerData: providerData
             };
-            var user = new User(providerUserProfile);
-            console.log('user: ' + user.firstName);
+            var query = {
+                providerData: {
+                    id: providerData.id
+                }
+            };
+
             
-            user.save(function(err, user){
-                console.log('err: ' + err)
-                console.log('user saved' + user._id);
-                done(null,user)
+            User.findOne(query, function(err,user){
+
+                if(user){
+                    console.log('User Exists Already');
+                    done(null,user);
+                }
+                else{
+                    console.log('new user');
+                    var user = new User(providerUserProfile);
+                    user.save(function(err, user){
+                        console.log('err: ' + err)
+                        console.log('user saved' + user._id);
+                        done(null,user)
+                    })
+                }
             })
             
+
         }
     ));
-}
+};

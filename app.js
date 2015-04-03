@@ -11,8 +11,6 @@ var User = require('./model/user.model');
 var passport = require('passport');
 
 var db = mongoose.connect('mongodb://localhost/socialAggregation');
-    
-
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
