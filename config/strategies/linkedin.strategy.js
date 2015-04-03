@@ -1,18 +1,22 @@
 var passport = require('passport'),
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+    LinkedInStrategy = require('passport-linkedin').Strategy,
     User = require('mongoose').model('User');
 
 module.exports = function () {
-    passport.use(new GoogleStrategy({
-            clientID: '994787243001-s3g7o56kev8njt4ma1kvduhvl4gs4s98.apps.googleusercontent.com',
-            clientSecret: '0S2sPjJgHQXqcY2T6PyJ0xtL',
-            callbackURL: 'http://localhost:3000/auth/google/callback'
+    // Use linkedin strategy
+    passport.use(new LinkedInStrategy({
+            consumerKey: 'L0UjjxtTdUz7pRZ82xRRUDUmV4pKGcnsm0_VpDmIbjUEqDLZke1wmp4vW-RhONqd',
+            consumerSecret: '5I5WTu3B7KxpRjocgBBwM_1elJVg08rWF-dbuQJvRunEEcePAH8D41jAqE5wAQxY',
+            callbackURL: 'http://localhost:3000/auth/linkedin/callback',
+            passReqToCallback: true,
+            profileFields: ['id', 'first-name', 'last-name', 'email-address']
         },
         function (req, accessToken, refreshToken, profile, done) {
             // Set the provider data and include tokens
             var providerData = profile._json;
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
+
             // Create the user OAuth profile
             var providerUserProfile = {
                 firstName: profile.name.givenName,
@@ -20,9 +24,8 @@ module.exports = function () {
                 displayName: profile.displayName,
                 email: profile.emails[0].value,
                 username: profile.username,
-                avatarUrl: providerData.image.url,
+                provider: 'linkedin',
                 providerIdentifierField: 'id',
-                provider: 'google',
                 providerData: providerData
             };
 
@@ -49,7 +52,6 @@ module.exports = function () {
                     });
                 }
             });
-
         }
     ));
 };

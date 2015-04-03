@@ -20,4 +20,9 @@ router.route('/twitter/callback').get(passport.authenticate('twitter', {
     failureRedirect: '/login'
 }));
 
+router.route('/linkedin').get(passport.authenticate('linkedin'));
+router.route('/linkedin/callback').get(passport.authenticate('linkedin', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}));
 module.exports = router;
